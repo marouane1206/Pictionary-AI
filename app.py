@@ -3,7 +3,7 @@ import torch
 import gradio as gr
 from torch import nn
 
-LABELS = Path("Gradio/Sketch-Recognition/class_names.txt").read_text().splitlines()
+LABELS = Path("class_names.txt").read_text().splitlines()
 
 model = nn.Sequential(
     nn.Conv2d(1, 32, 3, padding="same"),
@@ -20,7 +20,7 @@ model = nn.Sequential(
     nn.ReLU(),
     nn.Linear(256, len(LABELS)),
 )
-state_dict = torch.load("Gradio/Sketch-Recognition/pytorch_model.bin", map_location="cpu", weights_only=False)
+state_dict = torch.load("pytorch_model.bin", map_location="cpu", weights_only=False)
 model.load_state_dict(state_dict, strict=False)
 model.eval()
 
